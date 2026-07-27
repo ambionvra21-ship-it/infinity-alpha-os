@@ -3,94 +3,204 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-<title>Infinity Alpha OS</title>
-<link rel="stylesheet" href="css/dashboard.css">
+    <title>Infinity Alpha OS | Phoenix</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
 </head>
 
 <body>
 
-<div class="alpha-app">
+<div class="alpha-shell">
 
-    <!-- ===========================
-         SIDEBAR
-    ============================ -->
+    <!-- ==========================================
+        SIDEBAR
+    =========================================== -->
 
-    <aside class="alpha-sidebar">
+    <aside class="sidebar">
 
-        <div class="alpha-logo">
+        <div class="logo">
 
-            INFINITY
-            <br>
-            ALPHA
+            <div class="logo-orb">
+
+                ∞
+
+            </div>
+
+            <div class="logo-text">
+
+                <h2>INFINITY</h2>
+
+                <span>ALPHA OS</span>
+
+            </div>
 
         </div>
 
-        <nav>
+        <nav class="sidebar-nav">
 
-            <a href="#">🏠 Dashboard</a>
+            <a href="#" class="active">
 
-            <a href="#">💰 Wealth</a>
+                <span>🏠</span>
 
-            <a href="#">📈 Markets</a>
+                Dashboard
 
-            <a href="#">🌤 Weather</a>
+            </a>
 
-            <a href="#">✅ Productivity</a>
+            <a href="#wealth-app">
 
-            <a href="#">🤖 AI</a>
+                <span>💰</span>
 
-            <a href="#">⚙ Settings</a>
+                Wealth OS
+
+            </a>
+
+            <a href="#markets-app">
+
+                <span>📈</span>
+
+                Markets
+
+            </a>
+
+            <a href="#weather-app">
+
+                <span>🌤</span>
+
+                Global
+
+            </a>
+
+            <a href="#productivity-app">
+
+                <span>⏱</span>
+
+                Productivity
+
+            </a>
+
+            <a href="#ai-app">
+
+                <span>🤖</span>
+
+                Alpha AI
+
+            </a>
+
+            <a href="#settings">
+
+                <span>⚙</span>
+
+                Settings
+
+            </a>
 
         </nav>
 
+        <div class="sidebar-footer">
+
+            <div class="status-dot"></div>
+
+            Alpha Core Online
+
+        </div>
+
     </aside>
 
-    <!-- ===========================
-         MAIN CONTENT
-    ============================ -->
+    <!-- ==========================================
+        MAIN AREA
+    =========================================== -->
 
-    <main class="alpha-main">
+    <main class="main-content">
+
+        <!-- HEADER -->
+
+        <header class="topbar">
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    placeholder="Search modules...">
+
+            </div>
+
+            <div class="topbar-right">
+
+                <button class="alpha-btn">
+
+                    Start Day
+
+                </button>
+
+                <div class="profile">
+
+                    <div class="avatar">
+
+                        A
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
 
         <!-- HERO -->
 
         <section class="hero">
 
-            <div class="hero-content">
+            <div class="hero-left">
 
-                <small class="hero-badge">
+                <div class="hero-badge">
 
-                    INFINITY ALPHA OS
+                    PHOENIX BUILD 001
 
-                </small>
+                </div>
 
-                <h1 id="greeting">
+                <h1>
 
-                    Good Evening, Commander
+                    Good Evening,
+                    Commander.
 
                 </h1>
 
-                <p id="welcomeMessage">
+                <p>
 
                     Welcome back.
-                    Your command center is ready.
+
+                    Infinity Alpha OS is online and ready for today's mission.
 
                 </p>
 
-                <div class="hero-buttons">
+                <div class="hero-actions">
 
-                    <button id="startDay">
+                    <button class="primary-btn">
 
-                        Start Day
+                        Launch Mission
 
                     </button>
 
-                    <button id="focusMode">
+                    <button class="secondary-btn">
 
                         Focus Mode
 
@@ -100,11 +210,15 @@ content="width=device-width, initial-scale=1.0">
 
             </div>
 
-            <div class="hero-orb">
+            <div class="hero-right">
 
-                <div class="orb">
+                <div class="alpha-orb">
 
-                    A
+                    <div class="orb-core">
+
+                        A
+
+                    </div>
 
                 </div>
 
@@ -112,154 +226,310 @@ content="width=device-width, initial-scale=1.0">
 
         </section>
 
-        <!-- DASHBOARD -->
+        <!-- APPLICATION GRID -->
 
-        <section class="dashboard-grid">
+        <section class="app-grid">
 
-            <div class="card">
+            <!-- Wealth -->
 
-                Weather
+            <section
+                class="app-card"
+                id="wealth-app">
 
-            </div>
+                <div class="card-header">
 
-            <div class="card">
+                    <h3>
 
-                Wealth OS
+                        💰 Wealth OS
 
-            </div>
+                    </h3>
 
-            <div class="card">
+                    <span class="live">
 
-                Markets
+                        ● Ready
 
-            </div>
+                    </span>
 
-            <div class="card">
+                </div>
 
-                Productivity
+                <div class="card-body">
 
-            </div>
+                    <h2>$0.00</h2>
+
+                    <p>
+
+                        Net Worth
+
+                    </p>
+
+                </div>
+
+            </section>
+
+            <!-- Markets -->
+
+            <section
+                class="app-card"
+                id="markets-app">
+
+                <div class="card-header">
+
+                    <h3>
+
+                        📈 Markets
+
+                    </h3>
+
+                    <span class="live">
+
+                        ● Waiting
+
+                    </span>
+
+                </div>
+
+                <div class="card-body">
+
+                    <h2>
+
+                        Live Data
+
+                    </h2>
+
+                    <p>
+
+                        Stocks • Crypto • Forex
+
+                    </p>
+
+                </div>
+
+                            <!-- Weather -->
+
+            <section
+                class="app-card"
+                id="weather-app">
+
+                <div class="card-header">
+
+                    <h3>
+
+                        🌤 Global Intelligence
+
+                    </h3>
+
+                    <span class="live">
+
+                        ● Ready
+
+                    </span>
+
+                </div>
+
+                <div class="card-body">
+
+                    <h2>
+
+                        28°C
+
+                    </h2>
+
+                    <p>
+
+                        Weather • Time • Location
+
+                    </p>
+
+                </div>
+
+            </section>
+
+            <!-- Productivity -->
+
+            <section
+                class="app-card"
+                id="productivity-app">
+
+                <div class="card-header">
+
+                    <h3>
+
+                        ⏱ Productivity
+
+                    </h3>
+
+                    <span class="live">
+
+                        ● Ready
+
+                    </span>
+
+                </div>
+
+                <div class="card-body">
+
+                    <h2>
+
+                        Mission Ready
+
+                    </h2>
+
+                    <p>
+
+                        Tasks • Focus • Calendar
+
+                    </p>
+
+                </div>
+
+            </section>
 
         </section>
 
     </main>
 
-</div>
+    <!-- ==========================================
+        LIVE INTELLIGENCE
+    =========================================== -->
 
-</body>
+    <aside class="live-panel">
 
-</html>
+        <h2>
 
-<div class="alpha-layout">
-
-    <!-- LEFT APP RAIL -->
-    <aside class="alpha-sidebar">
-
-        <h2>∞ ALPHA</h2>
-
-        <div class="alpha-app">
-            🏠 Home
-        </div>
-
-        <div class="alpha-app">
-            💰 Wealth
-        </div>
-
-        <div class="alpha-app">
-            ⏱ Focus
-        </div>
-
-        <div class="alpha-app">
-            🌎 Global
-        </div>
-
-    </aside>
-
-
-    <!-- MAIN WORKSPACE -->
-    <main class="alpha-workspace">
-
-        <section class="alpha-hero">
-
-            <h1>Infinity Alpha OS</h1>
-
-            <p>
-                Personal Intelligence Dashboard
-            </p>
-
-        </section>
-
-
-        <section class="alpha-grid">
-
-            <div class="alpha-card">
-                💰 Wealth OS
-            </div>
-
-
-            <div class="alpha-card">
-                🤖 Alpha AI
-            </div>
-
-
-            <div class="alpha-card">
-                ⏱ Productivity
-            </div>
-
-
-            <div class="alpha-card">
-                🌤 Global Data
-            </div>
-
-        </section>
-
-
-    </main>
-
-
-
-    <!-- RIGHT INTELLIGENCE PANEL -->
-    <aside class="alpha-live">
-
-        <h3>
             Live Intelligence
-        </h3>
 
+        </h2>
 
-        <div>
-            📈 Markets
+        <div class="intel-card">
+
+            <span>
+
+                ⭐ Alpha Score
+
+            </span>
+
+            <strong>
+
+                87
+
+            </strong>
+
         </div>
 
-        <div>
-            📰 News
+        <div class="intel-card">
+
+            <span>
+
+                📈 Markets
+
+            </span>
+
+            <strong>
+
+                Waiting...
+
+            </strong>
+
         </div>
 
-        <div>
-            🌦 Weather
+        <div class="intel-card">
+
+            <span>
+
+                ₿ Crypto
+
+            </span>
+
+            <strong>
+
+                Waiting...
+
+            </strong>
+
         </div>
 
+        <div class="intel-card">
+
+            <span>
+
+                🌦 Weather
+
+            </span>
+
+            <strong>
+
+                Online
+
+            </strong>
+
+        </div>
+
+        <div class="intel-card">
+
+            <span>
+
+                🤖 Alpha AI
+
+            </span>
+
+            <strong>
+
+                Connected
+
+            </strong>
+
+        </div>
 
     </aside>
 
-
 </div>
 
-    </aside>
+<!-- ==========================================
+    COMMAND CONSOLE
+========================================== -->
 
-</div>
+<footer class="alpha-console">
 
-<!-- ===========================
-     JavaScript
-=========================== -->
+    <div class="console-title">
+
+        Alpha Command Console
+
+    </div>
+
+    <div class="console-input">
+
+        <span>&gt;</span>
+
+        <input
+            id="alphaCommand"
+            type="text"
+            placeholder="Type a command...">
+
+    </div>
+
+</footer>
+
+<!-- ==========================================
+    JAVASCRIPT
+========================================== -->
 
 <script src="js/alpha-core.js"></script>
+
 <script src="js/modules/wealth.js"></script>
+
 <script src="js/modules/weather.js"></script>
+
 <script src="js/modules/markets.js"></script>
+
 <script src="js/modules/productivity.js"></script>
+
 <script src="js/modules/ai.js"></script>
+
 <script src="js/modules/settings.js"></script>
+
 <script src="js/app.js"></script>
 
 </body>
+
 </html>
+            </section>
