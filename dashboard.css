@@ -1,0 +1,78 @@
+/* ===========================================================
+   INFINITY ALPHA OS
+   Dashboard Foundation v2
+=========================================================== */
+
+:root{
+
+    --bg:#070b14;
+    --surface:#101827;
+    --surface2:#151f32;
+
+    --primary:#4f8cff;
+    --accent:#00d8ff;
+
+    --text:#ffffff;
+    --muted:#93a4be;
+
+    --border:rgba(255,255,255,.08);
+
+    --radius:20px;
+
+}
+
+/* =========================================================== */
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    font-family:Inter,sans-serif;
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    overflow-x:hidden;
+
+}
+
+/* =========================================================== */
+
+.container{
+
+    width:min(1400px,94%);
+
+    margin:auto;
+
+}
+
+/* =========================================================== */
+
+button{
+
+    cursor:pointer;
+
+    border:none;
+
+    outline:none;
+
+}
+
+input{
+
+    outline:none;
+
+}
