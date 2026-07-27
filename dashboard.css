@@ -1,16 +1,14 @@
-/* ==========================================
+/* =====================================
    INFINITY ALPHA OS
-   Dashboard Foundation CSS
-========================================== */
+   Dashboard Core
+===================================== */
 
 
 *{
-
     margin:0;
     padding:0;
     box-sizing:border-box;
     font-family:Arial, Helvetica, sans-serif;
-
 }
 
 
@@ -18,14 +16,13 @@ body{
 
     background:#050816;
     color:white;
-    min-height:100vh;
 
 }
 
 
-/* MAIN CONTAINER */
+/* APP */
 
-.alpha-container{
+.alpha-app{
 
     display:flex;
     min-height:100vh;
@@ -34,42 +31,31 @@ body{
 
 
 
-/* ==========================================
-   SIDEBAR
-========================================== */
-
+/* SIDEBAR */
 
 .alpha-sidebar{
 
     width:260px;
     background:#0b1020;
-    border-right:1px solid rgba(255,255,255,0.1);
-    padding:30px 20px;
+    padding:30px;
+
+    border-right:
+    1px solid rgba(255,255,255,.1);
 
 }
-
 
 
 .alpha-logo{
 
-    text-align:center;
-    margin-bottom:40px;
-
-}
-
-
-.alpha-logo h1{
-
     font-size:32px;
+    font-weight:bold;
+    text-align:center;
+
     letter-spacing:5px;
 
-}
-
-
-.alpha-logo h2{
-
     color:#00eaff;
-    letter-spacing:8px;
+
+    margin-bottom:50px;
 
 }
 
@@ -84,34 +70,34 @@ body{
 }
 
 
-
 .alpha-sidebar a{
 
-    padding:15px;
-    border-radius:12px;
     color:white;
     text-decoration:none;
-    background:rgba(255,255,255,0.05);
-    transition:.3s;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    background:
+    rgba(255,255,255,.05);
 
 }
+
 
 
 .alpha-sidebar a:hover{
 
     background:#00eaff;
-    color:#000;
+    color:black;
 
 }
 
 
 
-/* ==========================================
-   MAIN DASHBOARD
-========================================== */
+/* MAIN */
 
-
-.alpha-dashboard{
+.alpha-main{
 
     flex:1;
     padding:40px;
@@ -120,64 +106,118 @@ body{
 
 
 
-/* HEADER */
+/* HERO */
 
 
-.alpha-dashboard header h1{
+.hero{
 
-    font-size:42px;
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:
+    rgba(255,255,255,.05);
+
+    padding:40px;
+
+    border-radius:25px;
+
+}
+
+
+
+.hero-badge{
+
+    color:#00eaff;
+
     letter-spacing:3px;
 
 }
 
 
 
-.alpha-dashboard header h2{
+.hero h1{
+
+    margin-top:20px;
+
+    font-size:40px;
+
+}
+
+
+
+.hero p{
 
     margin-top:15px;
-    font-size:28px;
 
-}
-
-
-.alpha-dashboard header p{
-
-    margin-top:10px;
-    color:#9da7c7;
+    color:#9aa4c7;
 
 }
 
 
 
-/* BUTTON */
+.hero-buttons{
+
+    margin-top:30px;
+
+}
 
 
-.alpha-dashboard button{
 
-    margin-top:25px;
-    padding:15px 30px;
+.hero button{
+
+    padding:15px 25px;
 
     border:none;
+
     border-radius:30px;
 
-    background:#00eaff;
-    color:black;
+    margin-right:10px;
 
-    font-weight:bold;
     cursor:pointer;
+
+    background:#00eaff;
 
 }
 
 
 
-/* ==========================================
-   CARDS
-========================================== */
+/* ORB */
+
+.orb{
+
+    width:150px;
+
+    height:150px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:60px;
+
+    background:
+    rgba(0,234,255,.15);
+
+    border:
+    2px solid #00eaff;
+
+}
 
 
-.alpha-grid{
 
-    margin-top:40px;
+/* CARDS */
+
+
+.dashboard-grid{
+
+    margin-top:30px;
 
     display:grid;
 
@@ -190,35 +230,18 @@ body{
 
 
 
-.alpha-card{
+.card{
 
-    min-height:180px;
+    height:180px;
 
     padding:30px;
 
     border-radius:20px;
 
     background:
-    rgba(255,255,255,0.08);
-
-    backdrop-filter:blur(10px);
-
-    border:
-    1px solid rgba(255,255,255,0.1);
+    rgba(255,255,255,.08);
 
     font-size:24px;
-
-}
-
-
-
-.alpha-card p{
-
-    margin-top:20px;
-
-    color:#9da7c7;
-
-    font-size:15px;
 
 }
 
@@ -228,8 +251,7 @@ body{
 
 @media(max-width:900px){
 
-
-.alpha-container{
+.alpha-app{
 
     flex-direction:column;
 
@@ -243,7 +265,7 @@ body{
 }
 
 
-.alpha-grid{
+.dashboard-grid{
 
     grid-template-columns:1fr;
 
