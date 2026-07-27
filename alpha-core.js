@@ -1,61 +1,17 @@
 // ==========================================
-// 🧠 INFINITY ALPHA CORE ENGINE v1
+// 🧠 Alpha Core Engine
 // ==========================================
 
-console.log("🧠 Alpha Core Engine Online");
-
+console.log("🧠 Alpha Core Online");
 
 const AlphaCore = {
+    version: "1.0.0",
+    modules: {},
 
-    data: {
-
-        financeScore: 0,
-        weatherScore: 0,
-        productivityScore: 0,
-        totalScore: 0
-
-    },
-
-
-    calculateScore(){
-
-        let total =
-        this.data.financeScore +
-        this.data.weatherScore +
-        this.data.productivityScore;
-
-
-        this.data.totalScore =
-        Math.round(total / 3);
-
-
-        console.log(
-            "⭐ Alpha Score:",
-            this.data.totalScore
-        );
-
-
-        return this.data.totalScore;
-
-    },
-
-
-    updateModule(module, value){
-
-        this.data[module] = value;
-
-        console.log(
-            "🔄 Alpha Updated:",
-            module,
-            value
-        );
-
-        this.calculateScore();
-
+    register(name, module) {
+        this.modules[name] = module;
+        console.log(`✅ ${name} registered`);
     }
-
-
 };
-
 
 window.AlphaCore = AlphaCore;
