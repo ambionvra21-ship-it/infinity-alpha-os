@@ -1,113 +1,435 @@
-/* =====================================
+/* =====================================================
    INFINITY ALPHA OS
-   Dashboard Core
-===================================== */
+   Phoenix Build 001
+   Dashboard.css
+   Part 1 - Foundation
+===================================================== */
 
+/* ===========================
+   RESET
+=========================== */
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
 }
 
+html{
+    scroll-behavior:smooth;
+}
 
 body{
 
+    font-family:"Inter",sans-serif;
+
     background:#050816;
-    color:white;
+
+    color:#ffffff;
+
+    overflow-x:hidden;
 
 }
 
+/* ===========================
+   VARIABLES
+=========================== */
 
-/* APP */
+:root{
 
-.alpha-app{
+    --bg:#050816;
 
-    display:flex;
+    --surface:#0b1220;
+
+    --card:#111827;
+
+    --border:#1f2937;
+
+    --primary:#3b82f6;
+
+    --accent:#06b6d4;
+
+    --success:#10b981;
+
+    --warning:#f59e0b;
+
+    --danger:#ef4444;
+
+    --text:#ffffff;
+
+    --muted:#94a3b8;
+
+    --radius:18px;
+
+    --transition:.30s;
+
+}
+
+/* ===========================
+   APP LAYOUT
+=========================== */
+
+.alpha-shell{
+
+    display:grid;
+
+    grid-template-columns:
+
+        260px
+        1fr
+        320px;
+
     min-height:100vh;
 
 }
 
+/* ===========================
+   SIDEBAR
+=========================== */
 
+.sidebar{
 
-/* SIDEBAR */
+    background:#08101d;
 
-.alpha-sidebar{
+    border-right:1px solid var(--border);
 
-    width:260px;
-    background:#0b1020;
     padding:30px;
 
-    border-right:
-    1px solid rgba(255,255,255,.1);
+    display:flex;
+
+    flex-direction:column;
 
 }
 
-
-.alpha-logo{
-
-    font-size:32px;
-    font-weight:bold;
-    text-align:center;
-
-    letter-spacing:5px;
-
-    color:#00eaff;
-
-    margin-bottom:50px;
-
-}
-
-
-
-.alpha-sidebar nav{
+.logo{
 
     display:flex;
-    flex-direction:column;
+
+    align-items:center;
+
     gap:15px;
 
+    margin-bottom:45px;
+
 }
 
+.logo-orb{
 
-.alpha-sidebar a{
+    width:60px;
 
-    color:white;
+    height:60px;
+
+    border-radius:50%;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--accent)
+    );
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:28px;
+
+    font-weight:700;
+
+    box-shadow:
+
+        0 0 30px rgba(59,130,246,.45);
+
+}
+
+.logo-text h2{
+
+    font-size:20px;
+
+    letter-spacing:2px;
+
+}
+
+.logo-text span{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+}
+
+/* ===========================
+   NAVIGATION
+=========================== */
+
+.sidebar-nav{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+.sidebar-nav a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
     text-decoration:none;
 
-    padding:15px;
+    color:var(--muted);
 
-    border-radius:12px;
+    padding:14px 18px;
 
-    background:
-    rgba(255,255,255,.05);
+    border-radius:14px;
 
-}
+    transition:var(--transition);
 
-
-
-.alpha-sidebar a:hover{
-
-    background:#00eaff;
-    color:black;
+    font-size:15px;
 
 }
 
+.sidebar-nav a:hover{
 
+    background:#111827;
 
-/* MAIN */
+    color:white;
 
-.alpha-main{
+    transform:translateX(5px);
+
+}
+
+.sidebar-nav a.active{
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--accent)
+    );
+
+    color:white;
+
+    box-shadow:
+
+        0 12px 25px rgba(59,130,246,.25);
+
+}
+
+/* ===========================
+   SIDEBAR FOOTER
+=========================== */
+
+.sidebar-footer{
+
+    margin-top:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    color:var(--muted);
+
+    font-size:14px;
+
+}
+
+.status-dot{
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    background:var(--success);
+
+    box-shadow:
+
+        0 0 15px var(--success);
+
+}
+
+/* ===========================
+   MAIN CONTENT
+=========================== */
+
+.main-content{
+
+    padding:35px;
+
+}
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+
+.topbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:35px;
+
+}
+
+.search-box{
 
     flex:1;
-    padding:40px;
+
+    max-width:500px;
 
 }
 
+.search-box input{
 
+    width:100%;
 
-/* HERO */
+    padding:16px 20px;
 
+    border:none;
+
+    outline:none;
+
+    border-radius:14px;
+
+    background:#111827;
+
+    color:white;
+
+    font-size:15px;
+
+    border:1px solid var(--border);
+
+    transition:var(--transition);
+
+}
+
+.search-box input:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 20px rgba(59,130,246,.25);
+
+}
+
+.topbar-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    margin-left:30px;
+
+}
+
+.avatar{
+
+    width:46px;
+
+    height:46px;
+
+    border-radius:50%;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--accent)
+    );
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-weight:700;
+
+    font-size:18px;
+
+    box-shadow:0 0 20px rgba(59,130,246,.35);
+
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.alpha-btn,
+.primary-btn,
+.secondary-btn{
+
+    cursor:pointer;
+
+    border:none;
+
+    border-radius:14px;
+
+    padding:14px 24px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:var(--transition);
+
+}
+
+.alpha-btn,
+.primary-btn{
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--accent)
+    );
+
+    color:white;
+
+}
+
+.alpha-btn:hover,
+.primary-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 15px 30px rgba(59,130,246,.35);
+
+}
+
+.secondary-btn{
+
+    background:#111827;
+
+    color:white;
+
+    border:1px solid var(--border);
+
+}
+
+.secondary-btn:hover{
+
+    border-color:var(--primary);
+
+    transform:translateY(-2px);
+
+}
+
+/* =====================================================
+   HERO
+===================================================== */
 
 .hero{
 
@@ -117,263 +439,172 @@ body{
 
     align-items:center;
 
-    background:
-    rgba(255,255,255,.05);
+    margin-bottom:40px;
 
     padding:40px;
 
-    border-radius:25px;
+    background:linear-gradient(
+        135deg,
+        rgba(17,24,39,.95),
+        rgba(11,18,32,.95)
+    );
+
+    border:1px solid var(--border);
+
+    border-radius:24px;
 
 }
 
+.hero-left{
 
+    max-width:600px;
+
+}
 
 .hero-badge{
 
-    color:#00eaff;
+    display:inline-block;
 
-    letter-spacing:3px;
+    background:rgba(59,130,246,.15);
 
-}
+    color:var(--primary);
 
-
-
-.hero h1{
-
-    margin-top:20px;
-
-    font-size:40px;
-
-}
-
-
-
-.hero p{
-
-    margin-top:15px;
-
-    color:#9aa4c7;
-
-}
-
-
-
-.hero-buttons{
-
-    margin-top:30px;
-
-}
-
-
-
-.hero button{
-
-    padding:15px 25px;
-
-    border:none;
+    padding:8px 16px;
 
     border-radius:30px;
 
-    margin-right:10px;
+    font-size:13px;
 
-    cursor:pointer;
+    font-weight:600;
 
-    background:#00eaff;
+    margin-bottom:20px;
 
 }
 
+.hero h1{
 
+    font-size:48px;
 
-/* ORB */
+    font-weight:800;
 
-.orb{
+    line-height:1.1;
 
-    width:150px;
+    margin-bottom:18px;
 
-    height:150px;
+}
 
-    border-radius:50%;
+.hero p{
+
+    color:var(--muted);
+
+    line-height:1.8;
+
+    font-size:17px;
+
+    margin-bottom:30px;
+
+}
+
+.hero-actions{
 
     display:flex;
 
-    align-items:center;
+    gap:16px;
+
+}
+
+/* =====================================================
+   ALPHA ORB
+===================================================== */
+
+.hero-right{
+
+    display:flex;
 
     justify-content:center;
 
-    font-size:60px;
-
-    background:
-    rgba(0,234,255,.15);
-
-    border:
-    2px solid #00eaff;
+    align-items:center;
 
 }
 
+.alpha-orb{
 
+    width:220px;
 
-/* CARDS */
+    height:220px;
 
+    border-radius:50%;
 
-.dashboard-grid{
+    background:radial-gradient(
 
-    margin-top:30px;
+        circle,
 
-    display:grid;
+        rgba(59,130,246,.25),
 
-    grid-template-columns:
-    repeat(2,1fr);
+        rgba(6,182,212,.08)
 
-    gap:25px;
+    );
 
-}
+    display:flex;
 
+    justify-content:center;
 
+    align-items:center;
 
-.card{
-
-    height:180px;
-
-    padding:30px;
-
-    border-radius:20px;
-
-    background:
-    rgba(255,255,255,.08);
-
-    font-size:24px;
+    animation:orbFloat 5s ease-in-out infinite;
 
 }
 
+.orb-core{
 
+    width:120px;
 
-/* MOBILE */
+    height:120px;
 
-@media(max-width:900px){
+    border-radius:50%;
 
-.alpha-app{
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--accent)
+    );
 
-    flex-direction:column;
+    display:flex;
 
-}
+    justify-content:center;
 
+    align-items:center;
 
-.alpha-sidebar{
+    font-size:52px;
 
-    width:100%;
+    font-weight:800;
 
-}
+    color:white;
 
+    box-shadow:
 
-.dashboard-grid{
-
-    grid-template-columns:1fr;
-
-}
-
-
-}
-
-/* =====================================
-   ALPHA OS MAIN GRID
-===================================== */
-
-
-.alpha-layout{
-
-    display:grid;
-
-    grid-template-columns:
-    220px 1fr 280px;
-
-    min-height:100vh;
+        0 0 50px rgba(59,130,246,.45);
 
 }
 
+@keyframes orbFloat{
 
-/* LEFT */
+    0%{
 
-.alpha-sidebar{
+        transform:translateY(0px);
 
-    background:#080d20;
+    }
 
-    padding:25px;
+    50%{
 
-    border-right:1px solid #1c2748;
+        transform:translateY(-12px);
 
-}
+    }
 
+    100%{
 
-.alpha-app{
+        transform:translateY(0px);
 
-    margin-top:20px;
-
-    padding:15px;
-
-    background:#101936;
-
-    border-radius:12px;
-
-    cursor:pointer;
-
-}
-
-
-/* CENTER */
-
-.alpha-workspace{
-
-    padding:30px;
-
-}
-
-
-.alpha-hero{
-
-    background:#111a38;
-
-    padding:30px;
-
-    border-radius:20px;
-
-}
-
-
-.alpha-grid{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(2,1fr);
-
-    gap:20px;
-
-    margin-top:25px;
-
-}
-
-
-.alpha-card{
-
-    background:#101936;
-
-    padding:35px;
-
-    border-radius:18px;
-
-    min-height:120px;
-
-}
-
-
-/* RIGHT */
-
-.alpha-live{
-
-    background:#080d20;
-
-    padding:25px;
-
-    border-left:1px solid #1c2748;
+    }
 
 }
