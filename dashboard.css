@@ -76,3 +76,121 @@ input{
     outline:none;
 
 }
+
+/* ===========================================================
+   APPLICATION LAYOUT
+=========================================================== */
+
+.alpha-app{
+
+    display:grid;
+
+    grid-template-columns:280px 1fr;
+
+    min-height:100vh;
+
+}
+
+/* ===========================
+   SIDEBAR
+=========================== */
+
+.alpha-sidebar{
+
+    background:#0d1422;
+
+    border-right:1px solid rgba(255,255,255,.08);
+
+    padding:28px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:28px;
+
+}
+
+.alpha-logo{
+
+    font-size:28px;
+
+    font-weight:800;
+
+    color:#4f8cff;
+
+}
+
+.alpha-sidebar nav{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+.alpha-sidebar a{
+
+    text-decoration:none;
+
+    color:#a7b4c8;
+
+    padding:14px 18px;
+
+    border-radius:14px;
+
+    transition:.25s;
+
+    font-weight:600;
+
+}
+
+.alpha-sidebar a:hover{
+
+    background:#18253d;
+
+    color:white;
+
+}
+
+/* ===========================
+   MAIN
+=========================== */
+
+.alpha-main{
+
+    padding:40px;
+
+    overflow:auto;
+
+    background:#070b14;
+
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:900px){
+
+    .alpha-app{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .alpha-sidebar{
+
+        display:none;
+
+    }
+
+    .alpha-main{
+
+        padding:22px;
+
+    }
+
+}
