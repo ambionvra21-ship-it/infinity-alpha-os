@@ -273,3 +273,107 @@ body{
 
 
 }
+
+/* =====================================
+   ALPHA OS MAIN GRID
+===================================== */
+
+
+.alpha-layout{
+
+    display:grid;
+
+    grid-template-columns:
+    220px 1fr 280px;
+
+    min-height:100vh;
+
+}
+
+
+/* LEFT */
+
+.alpha-sidebar{
+
+    background:#080d20;
+
+    padding:25px;
+
+    border-right:1px solid #1c2748;
+
+}
+
+
+.alpha-app{
+
+    margin-top:20px;
+
+    padding:15px;
+
+    background:#101936;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+}
+
+
+/* CENTER */
+
+.alpha-workspace{
+
+    padding:30px;
+
+}
+
+
+.alpha-hero{
+
+    background:#111a38;
+
+    padding:30px;
+
+    border-radius:20px;
+
+}
+
+
+.alpha-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:20px;
+
+    margin-top:25px;
+
+}
+
+
+.alpha-card{
+
+    background:#101936;
+
+    padding:35px;
+
+    border-radius:18px;
+
+    min-height:120px;
+
+}
+
+
+/* RIGHT */
+
+.alpha-live{
+
+    background:#080d20;
+
+    padding:25px;
+
+    border-left:1px solid #1c2748;
+
+}
