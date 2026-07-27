@@ -1,17 +1,25 @@
 // ==========================================
-// 🧠 Alpha Core Engine
+// INFINITY ALPHA OS
+// Alpha Core Engine
+// Version 1.0.0
 // ==========================================
 
-console.log("🧠 Alpha Core Online");
+console.log("🧠 Alpha Core Engine Online");
 
 const AlphaCore = {
+
     version: "1.0.0",
+
     modules: {},
 
-    register(name, module) {
+    register(name, module){
+
         this.modules[name] = module;
-        console.log(`✅ ${name} registered`);
+
+        console.log("✅ Module Loaded:", name);
+
     }
+
 };
 
 window.AlphaCore = AlphaCore;
