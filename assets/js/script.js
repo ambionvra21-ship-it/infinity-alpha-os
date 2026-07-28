@@ -399,6 +399,8 @@ async function loadStocks() {
     { symbol: 'SPY', name: 'S&P 500 (SPY)' },
     { symbol: 'DIA', name: 'Dow Jones (DIA)' },
     { symbol: 'QQQ', name: 'Nasdaq (QQQ)' },
+    { symbol: 'IWM', name: 'Russell 2000 (IWM)' },
+    { symbol: 'VXX', name: 'Volatility (VXX)' },
   ];
   try {
     const res = await fetch(`https://api.twelvedata.com/quote?symbol=${symbols.map(s => s.symbol).join(',')}&apikey=${TWELVE_DATA_KEY}`);
