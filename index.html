@@ -5,227 +5,45 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Infinity Alpha X</title>
 <link rel="stylesheet" href="assets/css/style.css">
-<script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
   <div class="app">
     <aside class="sidebar">
-      <div>
-        <div class="logo"><i data-lucide="infinity"></i> <span>INFINITY ALPHA<br><small>AI OPERATING SYSTEM</small></span></div>
-        <nav>
-          <a href="#" class="active" data-view="dashboard"><i data-lucide="layout-dashboard"></i> Dashboard</a>
-          <a href="#" data-view="alpha-core"><i data-lucide="cpu"></i> Alpha Core</a>
-          <a href="#" data-view="wealth"><i data-lucide="wallet"></i> Wealth OS</a>
-          <a href="#" data-view="markets"><i data-lucide="trending-up"></i> Markets</a>
-          <a href="#" data-view="global"><i data-lucide="globe"></i> Global</a>
-          <a href="#" data-view="productivity"><i data-lucide="check-square"></i> Productivity</a>
-          <a href="#" data-view="ai-assistant"><i data-lucide="bot"></i> AI Assistant</a>
-          <a href="#" data-view="settings"><i data-lucide="settings"></i> Settings</a>
-        </nav>
-      </div>
-
-      <div class="sidebar-bottom">
-        <div class="upgrade-card">
-          <i data-lucide="crown" class="crown"></i>
-          <h4>Upgrade to<br>Alpha Pro</h4>
-          <p>Unlock advanced intelligence and exclusive features.</p>
-          <button>Upgrade Now</button>
-        </div>
-        <div class="profile-row">
-          <div class="avatar-sm">V</div>
-          <div class="info">
-            <div class="name">Von Ryan</div>
-            <div class="role">Commander</div>
-          </div>
-          <i data-lucide="chevron-down"></i>
-        </div>
-      </div>
+      <div class="logo">∞ <span>INFINITY ALPHA</span></div>
+      <nav>
+        <a href="#" class="active">Dashboard</a>
+        <a href="#">Alpha Core</a>
+        <a href="#">Wealth OS</a>
+        <a href="#">Markets</a>
+        <a href="#">Global</a>
+        <a href="#">Productivity</a>
+        <a href="#">AI Assistant</a>
+        <a href="#">Settings</a>
+      </nav>
     </aside>
 
     <main class="content">
       <header class="topbar">
-        <div class="search-wrap">
-          <i data-lucide="search"></i>
-          <input type="text" placeholder="Search Alpha...">
-        </div>
-        <div class="topbar-right">
-          <i data-lucide="bell"></i>
-          <i data-lucide="sun"></i>
-          <div class="avatar">α</div>
-        </div>
+        <input type="text" placeholder="Search Alpha...">
+        <div class="status">● System Online</div>
       </header>
 
-      <!-- DASHBOARD VIEW -->
-      <div id="view-dashboard" class="view active">
-        <section class="hero-row">
-          <div class="hero">
-            <div class="hero-text">
-              <h1>Good <span class="accent">afternoon</span>, Commander.</h1>
-              <p id="datetime"></p>
-              <p class="hero-sub">Markets are active today. You have 3 priorities for today.</p>
-              <div class="hero-buttons">
-                <button class="btn-primary"><i data-lucide="rocket"></i> Start My Day</button>
-                <button class="btn-ghost"><i data-lucide="sparkles"></i> AI Briefing</button>
-                <button class="btn-ghost"><i data-lucide="target"></i> Focus Mode</button>
-              </div>
-            </div>
-            <div class="orb">α</div>
-          </div>
-
-          <div class="overview-panel">
-            <h3>Today's Overview</h3>
-            <div class="overview-row"><span><i data-lucide="flag"></i> Priorities</span><b>3</b></div>
-            <div class="overview-row"><span><i data-lucide="cloud"></i> Clear Sky</span><b>24°C</b></div>
-            <div class="overview-row"><span><i data-lucide="trending-up"></i> Sentiment</span><b class="up" id="sentiment-val">--</b></div>
-            <div class="overview-row"><span><i data-lucide="dollar-sign"></i> Total Balance</span><b>$2,340.00</b></div>
-            <div class="overview-row"><span><i data-lucide="target"></i> Focus Score</span><b>72</b></div>
-          </div>
-        </section>
-
-        <section class="stats-grid" id="stats-grid"></section>
-
-        <section class="workspace-row">
-          <div class="panel workspace">
-            <h2>Workspace</h2>
-            <p class="muted">Your central command center</p>
-            <div class="workspace-grid" id="workspace-grid"></div>
-          </div>
-        </section>
-
-        <section class="markets-row">
-          <div class="panel markets-list-panel">
-            <h2>Top 10 Cryptocurrencies</h2>
-            <div id="markets-list">Loading...</div>
-          </div>
-          <div class="panel market-detail" id="market-detail">
-            <p class="muted">Select a coin to view details</p>
-          </div>
-        </section>
-      </div>
-
-      <!-- ALPHA CORE VIEW -->
-      <div id="view-alpha-core" class="view">
-        <div class="panel">
-          <h2><i data-lucide="cpu"></i> Alpha Core</h2>
-          <p class="muted">Your AI's central processing and decision engine.</p>
-          <div class="stats-grid" style="margin-top:16px;">
-            <div class="card"><div class="card-head"><i data-lucide="brain"></i> AI Model</div><div class="value">Alpha v2.1</div><div class="sub">Online & learning</div></div>
-            <div class="card"><div class="card-head"><i data-lucide="zap"></i> Response Time</div><div class="value">0.8s</div><div class="sub">Avg last 24h</div></div>
-            <div class="card"><div class="card-head"><i data-lucide="database"></i> Memory</div><div class="value">1.2k</div><div class="sub">Stored interactions</div></div>
-          </div>
-          <p class="muted" style="margin-top:20px;">Full Alpha Core controls — automations, AI behavior rules — build next.</p>
+      <section class="hero">
+        <div>
+          <h1>Good <span class="accent">afternoon</span>, Commander.</h1>
+          <p id="datetime"></p>
         </div>
-      </div>
+        <div class="orb">α</div>
+      </section>
 
-      <!-- WEALTH OS VIEW -->
-      <div id="view-wealth" class="view">
-        <div class="stats-grid" id="wealth-stats-grid"></div>
+      <section class="stats-grid" id="stats-grid">
+        <!-- cards injected by script.js -->
+      </section>
 
-        <div class="wealth-grid">
-          <div class="panel">
-            <h2><i data-lucide="landmark"></i> Accounts</h2>
-            <div id="accounts-list"></div>
-          </div>
-          <div class="panel">
-            <h2><i data-lucide="pie-chart"></i> Spending by Category</h2>
-            <div id="spending-chart"></div>
-          </div>
-        </div>
-
-        <div class="panel" style="margin-top:16px;">
-          <div class="transactions-header">
-            <h2><i data-lucide="list"></i> Recent Transactions</h2>
-            <button class="btn-primary" id="add-transaction-btn"><i data-lucide="plus"></i> Add Transaction</button>
-          </div>
-          <div id="transactions-list"></div>
-        </div>
-
-        <div id="transaction-modal" class="modal-overlay" style="display:none;">
-          <div class="modal">
-            <h3>Add Transaction</h3>
-            <input type="text" id="tx-name" placeholder="Description">
-            <input type="number" id="tx-amount" placeholder="Amount">
-            <select id="tx-type">
-              <option value="expense">Expense</option>
-              <option value="income">Income</option>
-            </select>
-            <select id="tx-category">
-              <option>Food</option>
-              <option>Transport</option>
-              <option>Shopping</option>
-              <option>Bills</option>
-              <option>Entertainment</option>
-              <option>Income</option>
-              <option>Other</option>
-            </select>
-            <div class="modal-buttons">
-              <button class="btn-ghost" id="tx-cancel">Cancel</button>
-              <button class="btn-primary" id="tx-save">Save</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- MARKETS VIEW (FULL TERMINAL) -->
-      <div id="view-markets" class="view">
-        <div class="markets-terminal">
-          <div class="panel terminal-list-panel">
-            <div class="search-wrap terminal-search">
-              <i data-lucide="search"></i>
-              <input type="text" id="terminal-search-input" placeholder="Search any coin...">
-            </div>
-            <div id="terminal-search-results"></div>
-            <h2 style="margin-top:14px;">Top Coins</h2>
-            <div id="terminal-coin-list">Loading...</div>
-          </div>
-          <div class="panel terminal-detail" id="terminal-detail">
-            <p class="muted">Select a coin to view details</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- GLOBAL VIEW -->
-      <div id="view-global" class="view">
-        <div class="panel">
-          <h2><i data-lucide="globe"></i> Global</h2>
-          <p class="muted">World news, macro events, and global intelligence feed.</p>
-          <p class="muted" style="margin-top:16px;">Live news feed and macro indicators coming next.</p>
-        </div>
-      </div>
-
-      <!-- PRODUCTIVITY VIEW -->
-      <div id="view-productivity" class="view">
-        <div class="panel">
-          <h2><i data-lucide="check-square"></i> Productivity</h2>
-          <p class="muted">Tasks, priorities, and daily planning.</p>
-          <div class="stats-grid" style="margin-top:16px;">
-            <div class="card"><div class="card-head"><i data-lucide="check-circle"></i> Completed</div><div class="value">2</div><div class="sub">Today</div></div>
-            <div class="card"><div class="card-head"><i data-lucide="circle"></i> Pending</div><div class="value">3</div><div class="sub">Active tasks</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- AI ASSISTANT VIEW -->
-      <div id="view-ai-assistant" class="view">
-        <div class="panel chat-panel">
-          <h2><i data-lucide="bot"></i> AI Assistant</h2>
-          <div id="chat-messages" class="chat-messages"></div>
-          <div class="chat-input-row">
-            <input type="text" id="chat-input" placeholder="Ask Alpha anything...">
-            <button id="chat-send" class="btn-primary"><i data-lucide="send"></i></button>
-          </div>
-        </div>
-      </div>
-
-      <!-- SETTINGS VIEW -->
-      <div id="view-settings" class="view">
-        <div class="panel">
-          <h2><i data-lucide="settings"></i> Settings</h2>
-          <p class="muted">Preferences, account, and system configuration.</p>
-          <p class="muted" style="margin-top:16px;">Settings panel coming next.</p>
-        </div>
-      </div>
-
+      <section class="markets">
+        <h2>Top Cryptocurrencies</h2>
+        <div id="markets-list">Loading...</div>
+      </section>
     </main>
   </div>
 
