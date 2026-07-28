@@ -1,4 +1,5 @@
-lucide.createIcons();
+function safeIcons() { if (typeof lucide !== 'undefined') safeIcons(); }
+safeIcons();
 
 /* ---------- Clock ---------- */
 function updateDateTime() {
@@ -63,7 +64,7 @@ document.getElementById('stats-grid').innerHTML = `
     ${miniLine([5,8,6,10,9,13,15], '#5b8cff')}
   </div>
 `;
-lucide.createIcons();
+safeIcons();
 
 /* ---------- Workspace grid ---------- */
 const workspaceItems = [
@@ -86,7 +87,7 @@ document.getElementById('workspace-grid').innerHTML = workspaceItems.map(w => `
     <span>${w.label}</span>
   </div>
 `).join('');
-lucide.createIcons();
+safeIcons();
 
 /* ---------- Live crypto markets (CoinGecko, with sparkline) ---------- */
 let coinsData = [];
@@ -425,7 +426,7 @@ function renderWealth() {
     </div>
   `;
 
-  lucide.createIcons();
+  safeIcons();
 }
 
 document.getElementById('add-transaction-btn')?.addEventListener('click', () => {
@@ -583,7 +584,7 @@ function renderWealth() {
     </div>
   `;
 
-  lucide.createIcons();
+  safeIcons();
 }
 
 document.getElementById('add-transaction-btn')?.addEventListener('click', () => {
@@ -741,7 +742,7 @@ function renderWealth() {
     </div>
   `;
 
-  lucide.createIcons();
+  safeIcons();
 }
 
 document.getElementById('add-transaction-btn')?.addEventListener('click', () => {
