@@ -621,3 +621,161 @@ document.querySelectorAll('.sidebar nav a').forEach(link => {
     link.addEventListener('click', () => { if (!window.wealthLoaded) { renderWealth(); window.wealthLoaded = true; } });
   }
 });
+
+/* ---------- Wealth OS ---------- */
+const CATEGORY_COLORS = {
+  Food: '#f59e0b', Transport: '#5b8cff', Shopping: '#a855f7',
+  Bills: '#ef4444', Entertainment: '#ec4899', Income: '#22c55e', Other: '#8b93a7'
+};
+const CATEGORY_ICONS = {
+  Food: 'utensils', Transport: 'car', Shopping: 'shopping-bag',
+  Bills: 'file-text', Entertainment: 'film', Income: 'plus-circle', Other: 'circle'
+};
+
+function seedWealthData() {
+  if (!localStorage.getItem('ia_accounts')) {
+    localStorage.setItem('ia_accounts', JSON.stringify([
+      { name: 'Checking', balance: 1200 },
+      { name: 'Savings', balance: 920 },
+      { name: 'Investment', balance: 220 },
+    ]));
+  }
+  if (!localStorage.getItem('ia_transactions')) {
+    const today = new Date();
+    const d = (offset) => new Date(today.getTime() - offset * 86400000).toISOString();
+    localStorage.setItem('ia_transactions', JSON.stringify([
+      { name: 'Grocery Store', amount: -54.20, category: 'Food', date: d(0) },
+      { name: 'Salary', amount: 1800, category: 'Income', date: d(1) },
+      { name: 'Gas Station', amount: -32.00, category: 'Transport', date: d(2) },
+      { name: 'Netflix', amount: -15.99, category: 'Entertainment', date: d(3) },
+      { name: 'Electric Bill', amount: -88.40, category: 'Bills', date: d(4) },
+      { name: 'Online Shopping', amount: -64.30, category: 'Shopping', date: d(5) },
+    ]));
+  }
+}
+
+function getWealthData() {
+  return {
+    accounts: JSON.parse(localStorage.getItem('ia_accounts') || '[]'),
+    transactions: JSON.parse(localStorage.getItem('ia_transactions') || '[]'),
+  };
+}
+
+function renderWealth() {
+  seedWealthData();
+  const { accounts, transactions } = getWealthData();
+
+  const totalBalance = accounts.reduce((s, a) => s + a.balance, 0);
+  const income = transactions.filter(t => t.amount > 0).reduce((s, t) => s + t.amount, 0);
+  const spending = transactions.filter(t => t.amount < 0).reduce((s, t) => s + Math.abs(t.amount), 0);
+
+  document.getElementById('wealth-stats-grid').innerHTML = `
+    <div class="card">
+      <div class="card-head"><i data-lucide="dollar-sign"></i> Total Balance</div>
+      <div class="value">$${totalBalance.toLocaleString(undefined, {minimumFractionDigits:2})}</div>
+      <div class="sub">${accounts.length} accounts</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><i data-lucide="trending-up"></i> Income</div>
+      <div class="value up">$${income.toLocaleString(undefined, {minimumFractionDigits:2})}</div>
+      <div class="sub">Recent</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><i data-lucide="trending-down"></i> Spending</div>
+      <div class="value down">$${spending.toLocaleString(undefined, {minimumFractionDigits:2})}</div>
+      <div class="sub">Recent</div>
+    </div>
+  `;
+
+  document.getElementById('accounts-list').innerHTML = accounts.map(a => `
+    <div class="account-item">
+      <span class="acc-name">${a.name}</span>
+      <span class="acc-balance">$${a.balance.toLocaleString(undefined, {minimumFractionDigits:2})}</span>
+    </div>
+  `).join('');
+
+  document.getElementById('transactions-list').innerHTML = [...transactions].reverse().map(t => {
+    const color = CATEGORY_COLORS[t.category] || '#8b93a7';
+    const icon = CATEGORY_ICONS[t.category] || 'circle';
+    const isIncome = t.amount > 0;
+    return `
+      <div class="transaction-row">
+        <div class="tx-left">
+          <div class="tx-icon" style="background:${color}22;"><i data-lucide="${icon}" style="color:${color};width:16px;height:16px;"></i></div>
+          <div>
+            <div class="tx-name">${t.name}</div>
+            <div class="tx-date">${new Date(t.date).toLocaleDateString('en-US', {month:'short', day:'numeric'})} · ${t.category}</div>
+          </div>
+        </div>
+        <div class="${isIncome ? 'up' : 'down'}">${isIncome ? '+' : ''}$${Math.abs(t.amount).toLocaleString(undefined, {minimumFractionDigits:2})}</div>
+      </div>
+    `;
+  }).join('');
+
+  // Spending breakdown donut
+  const byCategory = {};
+  transactions.filter(t => t.amount < 0).forEach(t => {
+    byCategory[t.category] = (byCategory[t.category] || 0) + Math.abs(t.amount);
+  });
+  const total = Object.values(byCategory).reduce((a, b) => a + b, 0) || 1;
+  let acc = 0;
+  const gradientParts = Object.entries(byCategory).map(([cat, val]) => {
+    const start = (acc / total) * 360;
+    acc += val;
+    const end = (acc / total) * 360;
+    return `${CATEGORY_COLORS[cat] || '#8b93a7'} ${start}deg ${end}deg`;
+  });
+  const gradient = gradientParts.length ? gradientParts.join(', ') : '#232a3d 0deg 360deg';
+
+  document.getElementById('spending-chart').innerHTML = `
+    <div class="donut-wrap">
+      <div class="donut" style="background: conic-gradient(${gradient});"></div>
+      <div class="donut-legend">
+        ${Object.entries(byCategory).map(([cat, val]) => `
+          <div class="legend-row">
+            <span class="legend-dot" style="background:${CATEGORY_COLORS[cat] || '#8b93a7'}"></span>
+            ${cat} — $${val.toFixed(2)}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  lucide.createIcons();
+}
+
+document.getElementById('add-transaction-btn')?.addEventListener('click', () => {
+  document.getElementById('transaction-modal').style.display = 'flex';
+});
+document.getElementById('tx-cancel')?.addEventListener('click', () => {
+  document.getElementById('transaction-modal').style.display = 'none';
+});
+document.getElementById('tx-save')?.addEventListener('click', () => {
+  const name = document.getElementById('tx-name').value.trim();
+  const amountRaw = parseFloat(document.getElementById('tx-amount').value);
+  const type = document.getElementById('tx-type').value;
+  const category = document.getElementById('tx-category').value;
+  if (!name || isNaN(amountRaw) || amountRaw <= 0) return;
+
+  const amount = type === 'income' ? amountRaw : -amountRaw;
+  const { accounts, transactions } = getWealthData();
+  transactions.push({ name, amount, category, date: new Date().toISOString() });
+  localStorage.setItem('ia_transactions', JSON.stringify(transactions));
+
+  if (accounts.length) {
+    accounts[0].balance += amount;
+    localStorage.setItem('ia_accounts', JSON.stringify(accounts));
+  }
+
+  document.getElementById('transaction-modal').style.display = 'none';
+  document.getElementById('tx-name').value = '';
+  document.getElementById('tx-amount').value = '';
+  renderWealth();
+});
+
+// hook into nav switching so Wealth OS renders on first visit
+document.querySelectorAll('.sidebar nav a').forEach(link => {
+  if (link.dataset.view === 'wealth') {
+    link.addEventListener('click', () => { if (!window.wealthLoaded) { renderWealth(); window.wealthLoaded = true; } });
+  }
+});
