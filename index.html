@@ -119,15 +119,50 @@
 
       <!-- WEALTH OS VIEW -->
       <div id="view-wealth" class="view">
-        <div class="panel">
-          <h2><i data-lucide="wallet"></i> Wealth OS</h2>
-          <p class="muted">Track balances, spending, and investments in one place.</p>
-          <div class="stats-grid" style="margin-top:16px;">
-            <div class="card"><div class="card-head"><i data-lucide="dollar-sign"></i> Total Balance</div><div class="value">$2,340.00</div><div class="sub up">↑ 12.5% vs yesterday</div></div>
-            <div class="card"><div class="card-head"><i data-lucide="piggy-bank"></i> Savings</div><div class="value">$1,120.00</div><div class="sub">3 accounts</div></div>
-            <div class="card"><div class="card-head"><i data-lucide="credit-card"></i> Spending</div><div class="value">$420.00</div><div class="sub">This month</div></div>
+        <div class="stats-grid" id="wealth-stats-grid"></div>
+
+        <div class="wealth-grid">
+          <div class="panel">
+            <h2><i data-lucide="landmark"></i> Accounts</h2>
+            <div id="accounts-list"></div>
           </div>
-          <p class="muted" style="margin-top:20px;">Budgeting, transactions, and account linking coming next.</p>
+          <div class="panel">
+            <h2><i data-lucide="pie-chart"></i> Spending by Category</h2>
+            <div id="spending-chart"></div>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:16px;">
+          <div class="transactions-header">
+            <h2><i data-lucide="list"></i> Recent Transactions</h2>
+            <button class="btn-primary" id="add-transaction-btn"><i data-lucide="plus"></i> Add Transaction</button>
+          </div>
+          <div id="transactions-list"></div>
+        </div>
+
+        <div id="transaction-modal" class="modal-overlay" style="display:none;">
+          <div class="modal">
+            <h3>Add Transaction</h3>
+            <input type="text" id="tx-name" placeholder="Description">
+            <input type="number" id="tx-amount" placeholder="Amount">
+            <select id="tx-type">
+              <option value="expense">Expense</option>
+              <option value="income">Income</option>
+            </select>
+            <select id="tx-category">
+              <option>Food</option>
+              <option>Transport</option>
+              <option>Shopping</option>
+              <option>Bills</option>
+              <option>Entertainment</option>
+              <option>Income</option>
+              <option>Other</option>
+            </select>
+            <div class="modal-buttons">
+              <button class="btn-ghost" id="tx-cancel">Cancel</button>
+              <button class="btn-primary" id="tx-save">Save</button>
+            </div>
+          </div>
         </div>
       </div>
 
