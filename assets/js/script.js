@@ -1,5 +1,4 @@
-function safeIcons() { if (typeof lucide !== 'undefined') lucide.createIcons(); }
-safeIcons();
+lucide.createIcons();
 
 /* ---------- Clock ---------- */
 function updateDateTime() {
@@ -11,7 +10,7 @@ function updateDateTime() {
 updateDateTime();
 setInterval(updateDateTime, 60000);
 
-/* ---------- Stat cards ---------- */
+/* ---------- Shared chart helpers ---------- */
 function circularProgress(pct) {
   const r = 26, c = 2 * Math.PI * r;
   const offset = c - (pct / 100) * c;
@@ -37,6 +36,20 @@ function miniLine(values, color) {
   </svg>`;
 }
 
+function bigLine(values, color) {
+  const w = 300, h = 120;
+  const min = Math.min(...values), max = Math.max(...values);
+  const pts = values.map((v, i) => {
+    const x = (i / (values.length - 1)) * w;
+    const y = h - ((v - min) / (max - min || 1)) * h;
+    return `${x},${y}`;
+  }).join(' ');
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="width:100%;height:100%;">
+    <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="2"/>
+  </svg>`;
+}
+
+/* ---------- Stat cards ---------- */
 document.getElementById('stats-grid').innerHTML = `
   <div class="card">
     <div class="card-head"><i data-lucide="cloud"></i> Weather</div>
@@ -64,7 +77,106 @@ document.getElementById('stats-grid').innerHTML = `
     ${miniLine([5,8,6,10,9,13,15], '#5b8cff')}
   </div>
 `;
-safeIcons();
+lucide.createIcons();
+
+/* ---------- Workspace grid ---------- */
+const workspaceItems = [
+  { icon: 'trending-up', label: 'Markets', color: '#22c55e' },
+  { icon: 'wallet', label: 'Wealth OS', color: '#5b8cff' },
+  { icon: 'globe', label: 'Global', color: '#a855f7' },
+  { icon: 'mail', label: 'Email', color: '#f59e0b' },
+  { icon: 'message-square', label: 'Messages', color: '#ec4899' },
+  { icon: 'calendar', label: 'Calendar', color: '#5b8cff' },
+  { icon: 'file-text', label: 'Notes', color: '#a855f7' },
+  { icon: 'bar-chart-2', label: 'Analytics', color: '#22c55e' },
+  { icon: 'bot', label: 'AI Assistant', color: '#5b8cff' },
+  { icon: 'grid', label: 'More Apps', color: '#8b93a7' },
+];
+document.getElementById('workspace-grid').innerHTML = workspaceItems.map(w => `
+  <div class="workspace-tile">
+    <div class="icon-circle" style="background:${w.color}22;">
+      <i data-lucide="${w.icon}"
+cat > assets/js/script.js << 'EOF'
+lucide.createIcons();
+
+/* ---------- Clock ---------- */
+function updateDateTime() {
+  const el = document.getElementById('datetime');
+  const now = new Date();
+  el.textContent = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+    + ' · ' + now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+}
+updateDateTime();
+setInterval(updateDateTime, 60000);
+
+/* ---------- Shared chart helpers ---------- */
+function circularProgress(pct) {
+  const r = 26, c = 2 * Math.PI * r;
+  const offset = c - (pct / 100) * c;
+  return `<svg width="64" height="64" viewBox="0 0 64 64">
+    <circle cx="32" cy="32" r="${r}" stroke="#232a3d" stroke-width="6" fill="none"/>
+    <circle cx="32" cy="32" r="${r}" stroke="url(#g)" stroke-width="6" fill="none"
+      stroke-dasharray="${c}" stroke-dashoffset="${offset}" stroke-linecap="round"
+      transform="rotate(-90 32 32)"/>
+    <defs><linearGradient id="g"><stop offset="0%" stop-color="#5b8cff"/><stop offset="100%" stop-color="#a855f7"/></linearGradient></defs>
+  </svg>`;
+}
+
+function miniLine(values, color) {
+  const w = 100, h = 30;
+  const min = Math.min(...values), max = Math.max(...values);
+  const pts = values.map((v, i) => {
+    const x = (i / (values.length - 1)) * w;
+    const y = h - ((v - min) / (max - min || 1)) * h;
+    return `${x},${y}`;
+  }).join(' ');
+  return `<svg class="sparkline" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+    <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="2"/>
+  </svg>`;
+}
+
+function bigLine(values, color) {
+  const w = 300, h = 120;
+  const min = Math.min(...values), max = Math.max(...values);
+  const pts = values.map((v, i) => {
+    const x = (i / (values.length - 1)) * w;
+    const y = h - ((v - min) / (max - min || 1)) * h;
+    return `${x},${y}`;
+  }).join(' ');
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="width:100%;height:100%;">
+    <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="2"/>
+  </svg>`;
+}
+
+/* ---------- Stat cards ---------- */
+document.getElementById('stats-grid').innerHTML = `
+  <div class="card">
+    <div class="card-head"><i data-lucide="cloud"></i> Weather</div>
+    <div class="value">24°C</div>
+    <div class="sub">Clear Sky · Feels like 25°C</div>
+  </div>
+  <div class="card">
+    <div class="card-head"><i data-lucide="wallet"></i> Wealth OS</div>
+    <div class="value">$2,340.00</div>
+    <div class="sub up">↑ 12.5% vs yesterday</div>
+    ${miniLine([10,14,12,18,16,20,24], '#22c55e')}
+  </div>
+  <div class="card" style="display:flex; align-items:center; gap:16px;">
+    <div>${circularProgress(72)}</div>
+    <div>
+      <div class="card-head" style="margin-bottom:2px;"><i data-lucide="target"></i> Focus</div>
+      <div class="value" style="font-size:16px;">3 Active Tasks</div>
+      <div class="sub">2 completed today</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><i data-lucide="activity"></i> System</div>
+    <div class="value">100%</div>
+    <div class="sub">All Systems Operational</div>
+    ${miniLine([5,8,6,10,9,13,15], '#5b8cff')}
+  </div>
+`;
+lucide.createIcons();
 
 /* ---------- Workspace grid ---------- */
 const workspaceItems = [
@@ -87,9 +199,9 @@ document.getElementById('workspace-grid').innerHTML = workspaceItems.map(w => `
     <span>${w.label}</span>
   </div>
 `).join('');
-safeIcons();
+lucide.createIcons();
 
-/* ---------- Live crypto markets (CoinGecko, with sparkline) ---------- */
+/* ---------- Dashboard live crypto markets ---------- */
 let coinsData = [];
 
 async function loadMarkets() {
@@ -115,17 +227,16 @@ async function loadMarkets() {
       </div>`;
     }).join('');
 
-    document.querySelectorAll('.coin-row').forEach(row => {
+    document.querySelectorAll('#markets-list .coin-row').forEach(row => {
       row.addEventListener('click', () => showDetail(parseInt(row.dataset.index)));
     });
 
-    // sentiment: average of top 10 24h changes
     const avg = coinsData.reduce((s, c) => s + (c.price_change_percentage_24h || 0), 0) / coinsData.length;
     const sentEl = document.getElementById('sentiment-val');
     sentEl.textContent = (avg >= 0 ? '+' : '') + avg.toFixed(2) + '% ' + (avg >= 0 ? 'Bullish' : 'Bearish');
     sentEl.className = avg >= 0 ? 'up' : 'down';
 
-    if (!document.querySelector('.market-detail').dataset.selected) {
+    if (!document.getElementById('market-detail').dataset.selected) {
       showDetail(0);
     }
   } catch (e) {
@@ -141,9 +252,7 @@ function showDetail(i) {
   panel.innerHTML = `
     <div class="detail-head">
       <img src="${c.image}" alt="${c.symbol}">
-      <div>
-        <div>${c.name} <small style="color:var(--muted)">${c.symbol.toUpperCase()}/USD</small></div>
-      </div>
+      <div>${c.name} <small style="color:var(--muted)">${c.symbol.toUpperCase()}/USD</small></div>
     </div>
     <div class="detail-price">$${c.current_price.toLocaleString()}
       <span class="${up ? 'up' : 'down'}" style="font-size:14px;">${up ? '+' : ''}${c.price_change_percentage_24h?.toFixed(2)}%</span>
@@ -152,23 +261,10 @@ function showDetail(i) {
   `;
 }
 
-function bigLine(values, color) {
-  const w = 300, h = 120;
-  const min = Math.min(...values), max = Math.max(...values);
-  const pts = values.map((v, i) => {
-    const x = (i / (values.length - 1)) * w;
-    const y = h - ((v - min) / (max - min || 1)) * h;
-    return `${x},${y}`;
-  }).join(' ');
-  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="width:100%;height:100%;">
-    <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="2"/>
-  </svg>`;
-}
-
 loadMarkets();
 setInterval(loadMarkets, 60000);
 
-/* ---------- Sidebar navigation (SPA view switching) ---------- */
+/* ---------- Sidebar navigation (single source of truth) ---------- */
 document.querySelectorAll('.sidebar nav a').forEach(link => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
@@ -178,21 +274,18 @@ document.querySelectorAll('.sidebar nav a').forEach(link => {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     const target = document.getElementById('view-' + link.dataset.view);
     if (target) target.classList.add('active');
-  });
-});
 
-/* ---------- Sidebar navigation (SPA view switching) ---------- */
-document.querySelectorAll('.sidebar nav a').forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    document.querySelectorAll('.sidebar nav a').forEach(a => a.classList.remove('active'));
-    link.classList.add('active');
-    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    const target = document.getElementById('view-' + link.dataset.view);
-    if (target) target.classList.add('active');
     if (link.dataset.view === 'markets' && !window.terminalLoaded) {
       loadTerminalCoins();
       window.terminalLoaded = true;
+    }
+    if (link.dataset.view === 'wealth' && !window.wealthLoaded) {
+      renderWealth();
+      window.wealthLoaded = true;
+    }
+    if (link.dataset.view === 'ai-assistant' && !window.chatGreeted) {
+      appendBubble("Hey Commander, I'm Alpha. What do you need?", 'ai');
+      window.chatGreeted = true;
     }
   });
 });
@@ -280,7 +373,6 @@ async function renderTerminalDetail() {
   }
 }
 
-/* ---------- Terminal search (any coin) ---------- */
 let searchDebounce;
 document.getElementById('terminal-search-input')?.addEventListener('input', (e) => {
   clearTimeout(searchDebounce);
@@ -397,7 +489,6 @@ function renderWealth() {
     `;
   }).join('');
 
-  // Spending breakdown donut
   const byCategory = {};
   transactions.filter(t => t.amount < 0).forEach(t => {
     byCategory[t.category] = (byCategory[t.category] || 0) + Math.abs(t.amount);
@@ -426,7 +517,7 @@ function renderWealth() {
     </div>
   `;
 
-  safeIcons();
+  lucide.createIcons();
 }
 
 document.getElementById('add-transaction-btn')?.addEventListener('click', () => {
@@ -456,13 +547,6 @@ document.getElementById('tx-save')?.addEventListener('click', () => {
   document.getElementById('tx-name').value = '';
   document.getElementById('tx-amount').value = '';
   renderWealth();
-});
-
-// hook into nav switching so Wealth OS renders on first visit
-document.querySelectorAll('.sidebar nav a').forEach(link => {
-  if (link.dataset.view === 'wealth') {
-    link.addEventListener('click', () => { if (!window.wealthLoaded) { renderWealth(); window.wealthLoaded = true; } });
-  }
 });
 
 /* ---------- AI Assistant (free, no API key — Pollinations text API) ---------- */
@@ -521,16 +605,4 @@ async function sendChatMessage() {
 document.getElementById('chat-send')?.addEventListener('click', sendChatMessage);
 document.getElementById('chat-input')?.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') sendChatMessage();
-});
-
-// greet on first visit to this view
-document.querySelectorAll('.sidebar nav a').forEach(link => {
-  if (link.dataset.view === 'ai-assistant') {
-    link.addEventListener('click', () => {
-      if (!window.chatGreeted) {
-        appendBubble("Hey Commander, I'm Alpha. What do you need?", 'ai');
-        window.chatGreeted = true;
-      }
-    });
-  }
 });
