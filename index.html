@@ -207,10 +207,13 @@
 
       <!-- AI ASSISTANT VIEW -->
       <div id="view-ai-assistant" class="view">
-        <div class="panel">
+        <div class="panel chat-panel">
           <h2><i data-lucide="bot"></i> AI Assistant</h2>
-          <p class="muted">Chat with Alpha, your personal AI assistant.</p>
-          <p class="muted" style="margin-top:16px;">Chat interface coming next.</p>
+          <div id="chat-messages" class="chat-messages"></div>
+          <div class="chat-input-row">
+            <input type="text" id="chat-input" placeholder="Ask Alpha anything...">
+            <button id="chat-send" class="btn-primary"><i data-lucide="send"></i></button>
+          </div>
         </div>
       </div>
 
