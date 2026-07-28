@@ -166,3 +166,16 @@ function bigLine(values, color) {
 
 loadMarkets();
 setInterval(loadMarkets, 60000);
+
+/* ---------- Sidebar navigation (SPA view switching) ---------- */
+document.querySelectorAll('.sidebar nav a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelectorAll('.sidebar nav a').forEach(a => a.classList.remove('active'));
+    link.classList.add('active');
+
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    const target = document.getElementById('view-' + link.dataset.view);
+    if (target) target.classList.add('active');
+  });
+});
