@@ -131,12 +131,21 @@
         </div>
       </div>
 
-      <!-- MARKETS VIEW -->
+      <!-- MARKETS VIEW (FULL TERMINAL) -->
       <div id="view-markets" class="view">
-        <div class="panel">
-          <h2><i data-lucide="trending-up"></i> Markets</h2>
-          <p class="muted">Full market terminal — charts, watchlists, and order book.</p>
-          <p class="muted" style="margin-top:16px;">Live prices are on the Dashboard for now. A dedicated multi-asset terminal is next.</p>
+        <div class="markets-terminal">
+          <div class="panel terminal-list-panel">
+            <div class="search-wrap terminal-search">
+              <i data-lucide="search"></i>
+              <input type="text" id="terminal-search-input" placeholder="Search any coin...">
+            </div>
+            <div id="terminal-search-results"></div>
+            <h2 style="margin-top:14px;">Top Coins</h2>
+            <div id="terminal-coin-list">Loading...</div>
+          </div>
+          <div class="panel terminal-detail" id="terminal-detail">
+            <p class="muted">Select a coin to view details</p>
+          </div>
         </div>
       </div>
 

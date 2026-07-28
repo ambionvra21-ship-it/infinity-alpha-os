@@ -179,3 +179,129 @@ document.querySelectorAll('.sidebar nav a').forEach(link => {
     if (target) target.classList.add('active');
   });
 });
+
+/* ---------- Sidebar navigation (SPA view switching) ---------- */
+document.querySelectorAll('.sidebar nav a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelectorAll('.sidebar nav a').forEach(a => a.classList.remove('active'));
+    link.classList.add('active');
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    const target = document.getElementById('view-' + link.dataset.view);
+    if (target) target.classList.add('active');
+    if (link.dataset.view === 'markets' && !window.terminalLoaded) {
+      loadTerminalCoins();
+      window.terminalLoaded = true;
+    }
+  });
+});
+
+/* ---------- Markets terminal ---------- */
+let terminalCurrentId = null;
+let terminalCurrentRange = '1D';
+
+async function loadTerminalCoins() {
+  try {
+    const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1');
+    const coins = await res.json();
+    document.getElementById('terminal-coin-list').innerHTML = coins.map(c => {
+      const up = c.price_change_percentage_24h >= 0;
+      return `
+      <div class="coin-row" data-id="${c.id}">
+        <div class="coin-left">
+          <img src="${c.image}" alt="${c.symbol}">
+          <div class="coin-name">${c.name} <br><small>${c.symbol.toUpperCase()}</small></div>
+        </div>
+        <div class="coin-right">
+          <div>
+            <div class="price">$${c.current_price.toLocaleString()}</div>
+            <div class="${up ? 'up' : 'down'}">${up ? '+' : ''}${c.price_change_percentage_24h?.toFixed(2)}%</div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+    document.querySelectorAll('#terminal-coin-list .coin-row').forEach(row => {
+      row.addEventListener('click', () => selectTerminalCoin(row.dataset.id));
+    });
+    if (!terminalCurrentId) selectTerminalCoin(coins[0].id);
+  } catch (e) {
+    document.getElementById('terminal-coin-list').textContent = 'Failed to load coins.';
+  }
+}
+
+async function selectTerminalCoin(id) {
+  terminalCurrentId = id;
+  terminalCurrentRange = '1D';
+  await renderTerminalDetail();
+}
+
+function daysForRange(range) {
+  return { '1H': 1, '1D': 1, '1W': 7, '1M': 30, '1Y': 365 }[range];
+}
+
+async function renderTerminalDetail() {
+  const panel = document.getElementById('terminal-detail');
+  panel.innerHTML = `<p class="muted">Loading chart...</p>`;
+  try {
+    const [infoRes, chartRes] = await Promise.all([
+      fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${terminalCurrentId}`),
+      fetch(`https://api.coingecko.com/api/v3/coins/${terminalCurrentId}/market_chart?vs_currency=usd&days=${daysForRange(terminalCurrentRange)}`)
+    ]);
+    const info = (await infoRes.json())[0];
+    const chart = await chartRes.json();
+    let prices = chart.prices.map(p => p[1]);
+    if (terminalCurrentRange === '1H') prices = prices.slice(-12);
+
+    const up = info.price_change_percentage_24h >= 0;
+
+    panel.innerHTML = `
+      <div class="detail-head">
+        <img src="${info.image}" alt="${info.symbol}">
+        <div>${info.name} <small style="color:var(--muted)">${info.symbol.toUpperCase()}/USD</small></div>
+      </div>
+      <div class="detail-price">$${info.current_price.toLocaleString()}
+        <span class="${up ? 'up' : 'down'}" style="font-size:14px;">${up ? '+' : ''}${info.price_change_percentage_24h?.toFixed(2)}%</span>
+      </div>
+      <div class="timeframe-btns">
+        ${['1H','1D','1W','1M','1Y'].map(r => `<button data-range="${r}" class="${r === terminalCurrentRange ? 'active' : ''}">${r}</button>`).join('')}
+      </div>
+      <div class="big-chart">${bigLine(prices, up ? '#22c55e' : '#ef4444')}</div>
+    `;
+
+    panel.querySelectorAll('.timeframe-btns button').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        terminalCurrentRange = btn.dataset.range;
+        await renderTerminalDetail();
+      });
+    });
+  } catch (e) {
+    panel.innerHTML = `<p class="muted">Failed to load chart.</p>`;
+  }
+}
+
+/* ---------- Terminal search (any coin) ---------- */
+let searchDebounce;
+document.getElementById('terminal-search-input')?.addEventListener('input', (e) => {
+  clearTimeout(searchDebounce);
+  const q = e.target.value.trim();
+  const resultsBox = document.getElementById('terminal-search-results');
+  if (!q) { resultsBox.innerHTML = ''; return; }
+  searchDebounce = setTimeout(async () => {
+    try {
+      const res = await fetch(`https://api.coingecko.com/api/v3/search?query=${encodeURIComponent(q)}`);
+      const data = await res.json();
+      resultsBox.innerHTML = data.coins.slice(0, 6).map(c => `
+        <div class="search-result-item" data-id="${c.id}">
+          <img src="${c.thumb}" alt="${c.symbol}"> ${c.name} <small style="color:var(--muted)">${c.symbol.toUpperCase()}</small>
+        </div>
+      `).join('');
+      resultsBox.querySelectorAll('.search-result-item').forEach(item => {
+        item.addEventListener('click', () => {
+          selectTerminalCoin(item.dataset.id);
+          resultsBox.innerHTML = '';
+          document.getElementById('terminal-search-input').value = '';
+        });
+      });
+    } catch (e) { /* ignore */ }
+  }, 400);
+});
