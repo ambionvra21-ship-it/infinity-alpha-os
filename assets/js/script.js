@@ -1,4 +1,4 @@
-function safeIcons() { if (typeof lucide !== 'undefined') safeIcons(); }
+function safeIcons() { if (typeof lucide !== 'undefined') lucide.createIcons(); }
 safeIcons();
 
 /* ---------- Clock ---------- */
