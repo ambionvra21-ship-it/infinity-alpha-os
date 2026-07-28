@@ -392,24 +392,23 @@ async function loadFx() {
   } catch (e) { box.textContent = 'Failed to load FX rates.'; }
 }
 
+const TWELVE_DATA_KEY = 'f499143023f54111b133e9c2f66cc84f';
 async function loadStocks() {
   const box = document.getElementById('stock-indices');
-  const indices = [
-    { symbol: '%5EGSPC', name: 'S&P 500' },
-    { symbol: '%5EDJI', name: 'Dow Jones' },
-    { symbol: '%5EIXIC', name: 'Nasdaq' },
+  const symbols = [
+    { symbol: 'SPY', name: 'S&P 500 (SPY)' },
+    { symbol: 'DIA', name: 'Dow Jones (DIA)' },
+    { symbol: 'QQQ', name: 'Nasdaq (QQQ)' },
   ];
   try {
-    const results = await Promise.all(indices.map(async (idx) => {
-      const res = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${idx.symbol}`);
-      const data = await res.json();
-      const meta = data.chart.result[0].meta;
-      const change = ((meta.regularMarketPrice - meta.previousClose) / meta.previousClose) * 100;
-      return { name: idx.name, price: meta.regularMarketPrice, change };
-    }));
-    box.innerHTML = results.map(r => `
-      <div class="stock-row"><span>${r.name}</span><b>${r.price.toLocaleString(undefined,{maximumFractionDigits:2})} <span class="${r.change >= 0 ? 'up' : 'down'}">${r.change >= 0 ? '+' : ''}${r.change.toFixed(2)}%</span></b></div>
-    `).join('');
+    const res = await fetch(`https://api.twelvedata.com/quote?symbol=${symbols.map(s => s.symbol).join(',')}&apikey=${TWELVE_DATA_KEY}`);
+    const data = await res.json();
+    box.innerHTML = symbols.map(s => {
+      const q = symbols.length > 1 ? data[s.symbol] : data;
+      if (!q || q.status === 'error') return `<div class="stock-row"><span>${s.name}</span><b class="muted">N/A</b></div>`;
+      const change = parseFloat(q.percent_change);
+      return `<div class="stock-row"><span>${s.name}</span><b>${parseFloat(q.close).toLocaleString(undefined,{maximumFractionDigits:2})} <span class="${change >= 0 ? 'up' : 'down'}">${change >= 0 ? '+' : ''}${change.toFixed(2)}%</span></b></div>`;
+    }).join('');
   } catch (e) { box.textContent = 'Stock data unavailable right now.'; }
 }
 
@@ -472,7 +471,7 @@ async function sendChatMessage() {
   try {
     const contextBlock = chatLog.slice(-6).join('\n');
     const prompt = `${AI_SYSTEM_PROMPT}\n\n${contextBlock}\nAlpha:`;
-    const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(prompt)}?model=mistral`);
+    const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(prompt)}?model=openai`);
     let reply = (await res.text()).trim();
     if (!reply) reply = "I didn't catch that — try asking again.";
     typingEl.remove();
