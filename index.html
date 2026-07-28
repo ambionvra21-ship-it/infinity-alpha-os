@@ -95,6 +95,11 @@
         <section class="markets-row">
           <div class="panel markets-list-panel">
             <h2>Top 10 Cryptocurrencies</h2>
+            <div class="search-wrap dash-search">
+              <i data-lucide="search"></i>
+              <input type="text" id="dash-search-input" placeholder="Search any coin...">
+            </div>
+            <div id="dash-search-results"></div>
             <div id="markets-list">Loading...</div>
           </div>
           <div class="panel market-detail" id="market-detail">
@@ -113,7 +118,6 @@
             <div class="card"><div class="card-head"><i data-lucide="zap"></i> Response Time</div><div class="value">0.8s</div><div class="sub">Avg last 24h</div></div>
             <div class="card"><div class="card-head"><i data-lucide="database"></i> Memory</div><div class="value">1.2k</div><div class="sub">Stored interactions</div></div>
           </div>
-          <p class="muted" style="margin-top:20px;">Full Alpha Core controls — automations, AI behavior rules — build next.</p>
         </div>
       </div>
 
@@ -124,6 +128,7 @@
         <div class="wealth-grid">
           <div class="panel">
             <h2><i data-lucide="landmark"></i> Accounts</h2>
+            <p class="muted" style="margin-bottom:8px;">Multi-currency, converted to USD</p>
             <div id="accounts-list"></div>
           </div>
           <div class="panel">
@@ -144,7 +149,7 @@
           <div class="modal">
             <h3>Add Transaction</h3>
             <input type="text" id="tx-name" placeholder="Description">
-            <input type="number" id="tx-amount" placeholder="Amount">
+            <input type="number" id="tx-amount" placeholder="Amount (USD)">
             <select id="tx-type">
               <option value="expense">Expense</option>
               <option value="income">Income</option>
@@ -166,21 +171,39 @@
         </div>
       </div>
 
-      <!-- MARKETS VIEW -->
+      <!-- MARKETS VIEW (FULL TERMINAL) -->
       <div id="view-markets" class="view">
-        <div class="panel">
-          <h2><i data-lucide="trending-up"></i> Markets</h2>
-          <p class="muted">Full market terminal — charts, watchlists, and order book.</p>
-          <p class="muted" style="margin-top:16px;">Live prices are on the Dashboard for now. A dedicated multi-asset terminal is next.</p>
+        <div class="markets-terminal">
+          <div class="panel terminal-list-panel">
+            <div class="search-wrap terminal-search">
+              <i data-lucide="search"></i>
+              <input type="text" id="terminal-search-input" placeholder="Search any coin...">
+            </div>
+            <div id="terminal-search-results"></div>
+            <h2 style="margin-top:14px;">Top Coins</h2>
+            <div id="terminal-coin-list">Loading...</div>
+          </div>
+          <div class="panel terminal-detail" id="terminal-detail">
+            <p class="muted">Select a coin to view details</p>
+          </div>
         </div>
       </div>
 
       <!-- GLOBAL VIEW -->
       <div id="view-global" class="view">
-        <div class="panel">
-          <h2><i data-lucide="globe"></i> Global</h2>
-          <p class="muted">World news, macro events, and global intelligence feed.</p>
-          <p class="muted" style="margin-top:16px;">Live news feed and macro indicators coming next.</p>
+        <div class="global-grid">
+          <div class="panel">
+            <h2><i data-lucide="bar-chart-2"></i> Macro Indicators</h2>
+            <div id="macro-indicators">Loading...</div>
+          </div>
+          <div class="panel">
+            <h2><i data-lucide="dollar-sign"></i> FX Rates (Base USD)</h2>
+            <div id="fx-rates">Loading...</div>
+          </div>
+        </div>
+        <div class="panel" style="margin-top:16px;">
+          <h2><i data-lucide="newspaper"></i> World & Crypto News</h2>
+          <div id="global-news">Loading...</div>
         </div>
       </div>
 
@@ -213,7 +236,6 @@
         <div class="panel">
           <h2><i data-lucide="settings"></i> Settings</h2>
           <p class="muted">Preferences, account, and system configuration.</p>
-          <p class="muted" style="margin-top:16px;">Settings panel coming next.</p>
         </div>
       </div>
 
