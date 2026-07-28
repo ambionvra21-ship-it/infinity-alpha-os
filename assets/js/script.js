@@ -257,9 +257,9 @@ function getWealthData() {
 let fxRates = { USD: 1 };
 async function fetchFxRates() {
   try {
-    const res = await fetch('https://api.frankfurter.app/latest?from=USD&to=EUR,GBP,JPY,PHP');
+    const res = await fetch('https://open.er-api.com/v6/latest/USD');
     const data = await res.json();
-    fxRates = { USD: 1, ...data.rates };
+    fxRates = { USD: 1, EUR: data.rates.EUR, GBP: data.rates.GBP, JPY: data.rates.JPY, PHP: data.rates.PHP };
   } catch (e) {
     fxRates = { USD: 1, EUR: 0.92, GBP: 0.79, JPY: 157, PHP: 58.5 }; // fallback if API unreachable
   }
@@ -321,6 +321,22 @@ async function renderWealth() {
 }
 
 document.getElementById('add-transaction-btn')?.addEventListener('click', () => { document.getElementById('transaction-modal').style.display = 'flex'; });
+
+document.getElementById('add-account-btn')?.addEventListener('click', () => { document.getElementById('account-modal').style.display = 'flex'; });
+document.getElementById('acc-cancel')?.addEventListener('click', () => { document.getElementById('account-modal').style.display = 'none'; });
+document.getElementById('acc-save')?.addEventListener('click', () => {
+  const name = document.getElementById('acc-name').value.trim();
+  const currency = document.getElementById('acc-currency').value;
+  const balance = parseFloat(document.getElementById('acc-balance').value);
+  if (!name || isNaN(balance) || balance < 0) return;
+  const { accounts } = getWealthData();
+  accounts.push({ name, currency, balance });
+  localStorage.setItem('ia_accounts', JSON.stringify(accounts));
+  document.getElementById('account-modal').style.display = 'none';
+  document.getElementById('acc-name').value = '';
+  document.getElementById('acc-balance').value = '';
+  renderWealth();
+});
 document.getElementById('tx-cancel')?.addEventListener('click', () => { document.getElementById('transaction-modal').style.display = 'none'; });
 document.getElementById('tx-save')?.addEventListener('click', () => {
   const name = document.getElementById('tx-name').value.trim();
@@ -343,6 +359,7 @@ document.getElementById('tx-save')?.addEventListener('click', () => {
 async function loadGlobal() {
   loadMacro();
   loadFx();
+  loadStocks();
   loadNews();
 }
 
@@ -366,12 +383,34 @@ async function loadMacro() {
 async function loadFx() {
   const box = document.getElementById('fx-rates');
   try {
-    const res = await fetch('https://api.frankfurter.app/latest?from=USD&to=EUR,GBP,JPY,PHP');
+    const res = await fetch('https://open.er-api.com/v6/latest/USD');
     const data = await res.json();
-    box.innerHTML = Object.entries(data.rates).map(([cur, rate]) => `
-      <div class="fx-row"><span>USD → ${cur}</span><b>${rate.toFixed(cur === 'JPY' ? 2 : 4)}</b></div>
+    const show = ['EUR', 'GBP', 'JPY', 'PHP'];
+    box.innerHTML = show.map(cur => `
+      <div class="fx-row"><span>USD → ${cur}</span><b>${data.rates[cur].toFixed(cur === 'JPY' ? 2 : 4)}</b></div>
     `).join('');
   } catch (e) { box.textContent = 'Failed to load FX rates.'; }
+}
+
+async function loadStocks() {
+  const box = document.getElementById('stock-indices');
+  const indices = [
+    { symbol: '%5EGSPC', name: 'S&P 500' },
+    { symbol: '%5EDJI', name: 'Dow Jones' },
+    { symbol: '%5EIXIC', name: 'Nasdaq' },
+  ];
+  try {
+    const results = await Promise.all(indices.map(async (idx) => {
+      const res = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${idx.symbol}`);
+      const data = await res.json();
+      const meta = data.chart.result[0].meta;
+      const change = ((meta.regularMarketPrice - meta.previousClose) / meta.previousClose) * 100;
+      return { name: idx.name, price: meta.regularMarketPrice, change };
+    }));
+    box.innerHTML = results.map(r => `
+      <div class="stock-row"><span>${r.name}</span><b>${r.price.toLocaleString(undefined,{maximumFractionDigits:2})} <span class="${r.change >= 0 ? 'up' : 'down'}">${r.change >= 0 ? '+' : ''}${r.change.toFixed(2)}%</span></b></div>
+    `).join('');
+  } catch (e) { box.textContent = 'Stock data unavailable right now.'; }
 }
 
 async function loadNews() {
@@ -433,7 +472,7 @@ async function sendChatMessage() {
   try {
     const contextBlock = chatLog.slice(-6).join('\n');
     const prompt = `${AI_SYSTEM_PROMPT}\n\n${contextBlock}\nAlpha:`;
-    const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(prompt)}`);
+    const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(prompt)}?model=mistral`);
     let reply = (await res.text()).trim();
     if (!reply) reply = "I didn't catch that — try asking again.";
     typingEl.remove();
@@ -441,7 +480,7 @@ async function sendChatMessage() {
     chatLog.push(`Alpha: ${reply}`);
   } catch (e) {
     typingEl.remove();
-    appendBubble('Connection error — try again in a moment.', 'ai');
+    appendBubble(`Connection error: ${e.message || 'try again in a moment.'}`, 'ai');
   }
 }
 

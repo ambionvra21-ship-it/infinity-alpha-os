@@ -127,9 +127,31 @@
 
         <div class="wealth-grid">
           <div class="panel">
-            <h2><i data-lucide="landmark"></i> Accounts</h2>
+            <div class="transactions-header">
+              <h2><i data-lucide="landmark"></i> Accounts</h2>
+              <button class="btn-primary" id="add-account-btn"><i data-lucide="plus"></i> Add Account</button>
+            </div>
             <p class="muted" style="margin-bottom:8px;">Multi-currency, converted to USD</p>
             <div id="accounts-list"></div>
+          </div>
+
+          <div id="account-modal" class="modal-overlay" style="display:none;">
+            <div class="modal">
+              <h3>Add Account</h3>
+              <input type="text" id="acc-name" placeholder="Account name">
+              <select id="acc-currency">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="JPY">JPY</option>
+                <option value="PHP">PHP</option>
+              </select>
+              <input type="number" id="acc-balance" placeholder="Starting balance">
+              <div class="modal-buttons">
+                <button class="btn-ghost" id="acc-cancel">Cancel</button>
+                <button class="btn-primary" id="acc-save">Save</button>
+              </div>
+            </div>
           </div>
           <div class="panel">
             <h2><i data-lucide="pie-chart"></i> Spending by Category</h2>
@@ -200,6 +222,10 @@
             <h2><i data-lucide="dollar-sign"></i> FX Rates (Base USD)</h2>
             <div id="fx-rates">Loading...</div>
           </div>
+        </div>
+        <div class="panel" style="margin-top:16px;">
+          <h2><i data-lucide="bar-chart-3"></i> Stock Market Indices</h2>
+          <div id="stock-indices">Loading...</div>
         </div>
         <div class="panel" style="margin-top:16px;">
           <h2><i data-lucide="newspaper"></i> World & Crypto News</h2>

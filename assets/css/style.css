@@ -173,3 +173,7 @@ i[data-lucide] { width: 16px; height: 16px; vertical-align: middle; }
 .news-item:last-child { border-bottom: none; }
 .news-item .news-title { font-size: 13px; line-height: 1.4; }
 .news-item .news-source { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+/* ---------- Stock indices ---------- */
+.stock-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.stock-row:last-child { border-bottom: none; }
