@@ -5,44 +5,80 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Infinity Alpha X</title>
 <link rel="stylesheet" href="assets/css/style.css">
+<script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
   <div class="app">
     <aside class="sidebar">
-      <div class="logo">∞ <span>INFINITY ALPHA</span></div>
+      <div class="logo"><i data-lucide="infinity"></i> <span>INFINITY ALPHA<br><small>AI OPERATING SYSTEM</small></span></div>
       <nav>
-        <a href="#" class="active">Dashboard</a>
-        <a href="#">Alpha Core</a>
-        <a href="#">Wealth OS</a>
-        <a href="#">Markets</a>
-        <a href="#">Global</a>
-        <a href="#">Productivity</a>
-        <a href="#">AI Assistant</a>
-        <a href="#">Settings</a>
+        <a href="#" class="active"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+        <a href="#"><i data-lucide="cpu"></i> Alpha Core</a>
+        <a href="#"><i data-lucide="wallet"></i> Wealth OS</a>
+        <a href="#"><i data-lucide="trending-up"></i> Markets</a>
+        <a href="#"><i data-lucide="globe"></i> Global</a>
+        <a href="#"><i data-lucide="check-square"></i> Productivity</a>
+        <a href="#"><i data-lucide="bot"></i> AI Assistant</a>
+        <a href="#"><i data-lucide="settings"></i> Settings</a>
       </nav>
     </aside>
 
     <main class="content">
       <header class="topbar">
-        <input type="text" placeholder="Search Alpha...">
-        <div class="status">● System Online</div>
+        <div class="search-wrap">
+          <i data-lucide="search"></i>
+          <input type="text" placeholder="Search Alpha...">
+        </div>
+        <div class="topbar-right">
+          <i data-lucide="bell"></i>
+          <i data-lucide="sun"></i>
+          <div class="avatar">α</div>
+        </div>
       </header>
 
-      <section class="hero">
-        <div>
-          <h1>Good <span class="accent">afternoon</span>, Commander.</h1>
-          <p id="datetime"></p>
+      <section class="hero-row">
+        <div class="hero">
+          <div class="hero-text">
+            <h1>Good <span class="accent">afternoon</span>, Commander.</h1>
+            <p id="datetime"></p>
+            <p class="hero-sub">Markets are active today. You have 3 priorities for today.</p>
+            <div class="hero-buttons">
+              <button class="btn-primary"><i data-lucide="rocket"></i> Start My Day</button>
+              <button class="btn-ghost"><i data-lucide="sparkles"></i> AI Briefing</button>
+              <button class="btn-ghost"><i data-lucide="target"></i> Focus Mode</button>
+            </div>
+          </div>
+          <div class="orb">α</div>
         </div>
-        <div class="orb">α</div>
+
+        <div class="overview-panel">
+          <h3>Today's Overview</h3>
+          <div class="overview-row"><span><i data-lucide="flag"></i> Priorities</span><b>3</b></div>
+          <div class="overview-row"><span><i data-lucide="cloud"></i> Clear Sky</span><b>24°C</b></div>
+          <div class="overview-row"><span><i data-lucide="trending-up"></i> Sentiment</span><b class="up" id="sentiment-val">--</b></div>
+          <div class="overview-row"><span><i data-lucide="dollar-sign"></i> Total Balance</span><b>$2,340.00</b></div>
+          <div class="overview-row"><span><i data-lucide="target"></i> Focus Score</span><b>72</b></div>
+        </div>
       </section>
 
-      <section class="stats-grid" id="stats-grid">
-        <!-- cards injected by script.js -->
+      <section class="stats-grid" id="stats-grid"></section>
+
+      <section class="workspace-row">
+        <div class="panel workspace">
+          <h2>Workspace</h2>
+          <p class="muted">Your central command center</p>
+          <div class="workspace-grid" id="workspace-grid"></div>
+        </div>
       </section>
 
-      <section class="markets">
-        <h2>Top Cryptocurrencies</h2>
-        <div id="markets-list">Loading...</div>
+      <section class="markets-row">
+        <div class="panel markets-list-panel">
+          <h2>Top 10 Cryptocurrencies</h2>
+          <div id="markets-list">Loading...</div>
+        </div>
+        <div class="panel market-detail" id="market-detail">
+          <p class="muted">Select a coin to view details</p>
+        </div>
       </section>
     </main>
   </div>
