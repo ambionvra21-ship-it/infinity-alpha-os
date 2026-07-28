@@ -1,4 +1,3 @@
-// Live clock
 function updateDateTime() {
   const el = document.getElementById('datetime');
   const now = new Date();
@@ -8,7 +7,6 @@ function updateDateTime() {
 updateDateTime();
 setInterval(updateDateTime, 60000);
 
-// Stat cards (placeholder data for now)
 const stats = [
   { title: 'Wealth OS', value: '$2,340.00' },
   { title: 'Focus', value: '3 Active Tasks' },
@@ -18,7 +16,6 @@ document.getElementById('stats-grid').innerHTML = stats.map(s => `
   <div class="card"><h3>${s.title}</h3><div class="value">${s.value}</div></div>
 `).join('');
 
-// Live crypto - CoinGecko free API, no key needed
 async function loadMarkets() {
   try {
     const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1');
