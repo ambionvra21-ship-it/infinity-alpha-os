@@ -32,3 +32,72 @@ body {
         flex-direction: column;
     }
 }
+
+/* Navigation Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #111;
+    color: white;
+    padding: 1rem 2rem;
+    position: relative;
+}
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-size: 1rem;
+    transition: color 0.2s;
+}
+.nav-links a:hover {
+    color: #007bff;
+}
+
+/* Hide the responsive checkbox and hamburger menu button on Desktop screens */
+.menu-toggle {
+    display: none;
+}
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+}
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+}
+
+/* Mobile Devices Styling Breaks (Screens smaller than 768px) */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex; /* Shows hamburger bars */
+    }
+    .nav-links {
+        display: none; /* Hides traditional link row */
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #111;
+        padding: 1rem 0;
+        text-align: center;
+        z-index: 100;
+    }
+    .nav-links a {
+        margin: 0.75rem 0;
+        display: block;
+    }
+    /* When user taps the hamburger, the hidden checkbox ticks, displaying the links dropdown */
+    .menu-toggle:checked ~ .nav-links {
+        display: flex;
+    }
+}
